@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServerMonitor - Home Server Dashboard</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e1e2e' width='100' height='100'/><circle cx='50' cy='50' r='30' fill='%2389b4fa'/></svg>">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dark-theme.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+</head>
+<body class="dark-theme">
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" fill="#89b4fa"/>
+                        <path d="M16 4V12M16 20V28M4 16H12M20 16H28" stroke="#1e1e2e" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>ServerMonitor</span>
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a></li>
+                    <li><a href="#memory" class="nav-link" data-section="memory">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="M6 8H6.01M10 8H10.01M14 8H14.01M18 8H18.01"></path>
+                        </svg>
+                        <span>Memory</span>
+                    </a></li>
+                    <li><a href="#disk" class="nav-link" data-section="disk">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="4"></circle>
+                        </svg>
+                        <span>Disk</span>
+                    </a></li>
+                    <li><a href="#network" class="nav-link" data-section="network">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12H1M23 12H19M12 5V1M12 23V19"></path>
+                            <circle cx="12" cy="12" r="4"></circle>
+                        </svg>
+                        <span>Network</span>
+                    </a></li>
+                    <li><a href="#services" class="nav-link" data-section="services">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4" width="20" height="8"></rect>
+                            <rect x="2" y="14" width="20" height="4"></rect>
+                            <line x1="6" y1="9" x2="18" y2="9"></line>
+                        </svg>
+                        <span>Services</span>
+                    </a></li>
+                    <li><a href="#logs" class="nav-link" data-section="logs">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                            <polyline points="13 2 13 9 20 9"></polyline>
+                        </svg>
+                        <span>Logs</span>
+                    </a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="btn-settings" id="settingsBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m2.04 2.04l4.24 4.24M1 12h6m6 0h6m-1.78 7.78l-4.24-4.24m-2.04-2.04l-4.24-4.24"></path>
+                    </svg>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="header-actions">
+                    <span class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span id="connectionStatus">Connected</span>
+                    </span>
+                    <button class="btn-refresh" id="refreshBtn" title="Refresh now">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36M20.49 15a9 9 0 0 1-14.85 3.36"></path>
+                        </svg>
+                    </button>
+                    <button class="btn-theme-toggle" id="themeToggle" title="Toggle theme">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Sections Container -->
+            <div class="sections-container">
+                
+                <!-- Dashboard Section -->
+                <section id="section-dashboard" class="section active">
+                    <div class="section-title">
+                        <h2>System Overview</h2>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <!-- CPU Card -->
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h3>CPU Usage</h3>
+                                <span class="stat-icon cpu">📊</span>
+                            </div>
+                            <div class="stat-value" id="cpuValue">--</div>
+                            <div class="stat-percent" id="cpuPercent">%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="cpuProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Memory Card -->
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h3>Memory</h3>
+                                <span class="stat-icon memory">💾</span>
+                            </div>
+                            <div class="stat-value" id="memValue">--</div>
+                            <div class="stat-percent" id="memPercent">%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="memProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Disk Card -->
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h3>Disk Space</h3>
+                                <span class="stat-icon disk">💿</span>
+                            </div>
+                            <div class="stat-value" id="diskValue">--</div>
+                            <div class="stat-percent" id="diskPercent">%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="diskProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Temperature Card -->
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h3>Temperature</h3>
+                                <span class="stat-icon temp">🌡️</span>
+                            </div>
+                            <div class="stat-value" id="tempValue">--</div>
+                            <div class="stat-percent" id="tempUnit">°C</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="tempProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Uptime Card -->
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h3>Uptime</h3>
+                                <span class="stat-icon uptime">⏱️</span>
+                            </div>
+                            <div class="stat-value" id="uptimeValue" style="font-size: 1rem;">--</div>
+                        </div>
+                        
+                        <!-- Online Services Card -->
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h3>Services</h3>
+                                <span class="stat-icon services">🔧</span>
+                            </div>
+                            <div class="stat-value" id="servicesValue">--</div>
+                            <div class="stat-percent" id="servicesPercent">running</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Charts -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h4>CPU Usage (Last 60s)</h4>
+                            <canvas id="cpuChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h4>Memory Usage (Last 60s)</h4>
+                            <canvas id="memChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- CPU Section supprimée -->
+                
+                <!-- Memory Section -->
+                <section id="section-memory" class="section">
+                    <div class="section-title">
+                        <h2>Memory Analysis</h2>
+                    </div>
+                    <div class="grid-2">
+                        <div class="chart-card">
+                            <h4>Memory Distribution</h4>
+                            <canvas id="memDonutChart"></canvas>
+                        </div>
+                        <div class="info-card">
+                            <h4>Memory Details</h4>
+                            <dl class="details-list">
+                                <dt>Total RAM</dt>
+                                <dd id="memTotal">-- GB</dd>
+                                <dt>Used</dt>
+                                <dd id="memUsed">-- GB</dd>
+                                <dt>Free</dt>
+                                <dd id="memFree">-- GB</dd>
+                                <dt>Usage %</dt>
+                                <dd id="memUsagePercent">-- %</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Disk Section -->
+                <section id="section-disk" class="section">
+                    <div class="section-title">
+                        <h2>Disk Space</h2>
+                    </div>
+                    <div class="disk-container">
+                        <div class="chart-card">
+                            <h4>Disk Usage Distribution</h4>
+                            <canvas id="diskChart"></canvas>
+                        </div>
+                        <div class="info-card">
+                            <h4>Disk Details</h4>
+                            <dl class="details-list">
+                                <dt>Total Space</dt>
+                                <dd id="diskTotal">-- GB</dd>
+                                <dt>Used Space</dt>
+                                <dd id="diskUsed">-- GB</dd>
+                                <dt>Free Space</dt>
+                                <dd id="diskFree">-- GB</dd>
+                                <dt>Usage %</dt>
+                                <dd id="diskUsagePercent">-- %</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Network Section -->
+                <section id="section-network" class="section">
+                    <div class="section-title">
+                        <h2>Network Status</h2>
+                    </div>
+                    <div class="network-container" id="networkContainer">
+                        <!-- Network interfaces will be inserted here -->
+                    </div>
+                </section>
+                
+                <!-- Services Section -->
+                <section id="section-services" class="section">
+                    <div class="section-title">
+                        <h2>System Services</h2>
+                    </div>
+                    <div class="services-list" id="servicesList">
+                        <!-- Services will be inserted here -->
+                    </div>
+                </section>
+                
+                <!-- Logs Section -->
+                <section id="section-logs" class="section">
+                    <div class="section-title">
+                        <h2>System Logs</h2>
+                    </div>
+                    <div class="logs-container">
+                        <pre id="logsList" class="logs-content">
+Loading logs...
+                        </pre>
+                    </div>
+                </section>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="btn-close" id="closeSettings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="refreshInterval">Refresh Interval (seconds):</label>
+                    <input type="number" id="refreshInterval" min="1" max="60" value="2" step="1">
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="enableNotifications" checked>
+                        Enable notifications
+                    </label>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="enableCharts" checked>
+                        Enable charts
+                    </label>
+                </div>
+                <div class="setting-group">
+                    <button class="btn btn-primary" id="saveSettings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
