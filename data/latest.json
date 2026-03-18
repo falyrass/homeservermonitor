@@ -1,0 +1,73 @@
+{
+    "timestamp": "2026-03-18 08:47:45",
+    "cpu": 0.22,
+    "memory": {
+        "total": 7629.81,
+        "used": 638.17,
+        "free": 6991.64,
+        "percent": 8.36
+    },
+    "disk": {
+        "path": "/",
+        "total": 444.99,
+        "used": 38.92,
+        "free": 406.07,
+        "percent": 8.75
+    },
+    "network": {
+        "interfaces": [
+            {
+                "name": "lo",
+                "rx_bytes": 0,
+                "tx_bytes": 0
+            },
+            {
+                "name": "enp3s0",
+                "rx_bytes": 0,
+                "tx_bytes": 0
+            },
+            {
+                "name": "tailscale0",
+                "rx_bytes": 0,
+                "tx_bytes": 0
+            }
+        ]
+    },
+    "uptime": "5d 1h 14m",
+    "temperature": 27.8,
+    "services": [
+        {
+            "name": "3DRun-online",
+            "status": "stopped",
+            "active": false,
+            "pid": 0,
+            "restart_time": 0
+        },
+        {
+            "name": "ollama-engine",
+            "status": "stopped",
+            "active": false,
+            "pid": 0,
+            "restart_time": 0
+        },
+        {
+            "name": "server-monitor",
+            "status": "online",
+            "active": true,
+            "pid": 57940,
+            "restart_time": 0
+        }
+    ],
+    "logs": [
+        "Mar 18 11:43:10 hostfalyrass kernel: [UFW BLOCK] IN=enp3s0 OUT= MAC=01:00:5e:00:00:01:02:b6:61:52:a2:59:08:00 SRC=0.0.0.0 DST=224.0.0.1 LEN=32 TOS=0x00 PREC=0xC0 TTL=1 ID=0 DF PROTO=2",
+        "Mar 18 11:45:01 hostfalyrass CRON[138747]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)",
+        "Mar 18 11:45:01 hostfalyrass CRON[138748]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+        "Mar 18 11:45:01 hostfalyrass CRON[138747]: pam_unix(cron:session): session closed for user root",
+        "Mar 18 11:45:16 hostfalyrass kernel: [UFW BLOCK] IN=enp3s0 OUT= MAC=01:00:5e:00:00:01:02:b6:61:52:a2:59:08:00 SRC=0.0.0.0 DST=224.0.0.1 LEN=32 TOS=0x00 PREC=0xC0 TTL=1 ID=0 DF PROTO=2",
+        "Mar 18 11:46:45 hostfalyrass tailscaled[15105]: portmapper: PMP probe failed due result code: {OpCode:128 ResultCode:NetworkFailure SecondsSinceEpoch:479435 MappingValidSeconds:0 InternalPort:0 ExternalPort:0 PublicAddr:invalid IP}",
+        "Mar 18 11:46:47 hostfalyrass tailscaled[15105]: netcheck: DetectCaptivePortal(found=false)",
+        "Mar 18 11:46:47 hostfalyrass tailscaled[15105]: portmapper: saw UPnP type WANIPConnection1 at http://192.168.2.1:5500/rootDesc.xml; O3V3.0 (Tenda), method=single",
+        "Mar 18 11:46:47 hostfalyrass tailscaled[15105]: portmapper: UPnP returned unspecified external IP 0.0.0.0",
+        "Mar 18 11:47:21 hostfalyrass kernel: [UFW BLOCK] IN=enp3s0 OUT= MAC=01:00:5e:00:00:01:02:b6:61:52:a2:59:08:00 SRC=0.0.0.0 DST=224.0.0.1 LEN=32 TOS=0x00 PREC=0xC0 TTL=1 ID=0 DF PROTO=2"
+    ]
+}

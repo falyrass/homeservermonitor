@@ -1,0 +1,59 @@
+{
+  "name": "servermonitor",
+  "version": "1.0.0",
+  "description": "Professional and modern responsive home server dashboard with real-time monitoring",
+  "author": "falyrass",
+  "license": "MIT",
+  "type": "application",
+  "keywords": [
+    "server",
+    "monitor",
+    "dashboard",
+    "php",
+    "responsive",
+    "real-time"
+  ],
+  "server": {
+    "host": "100.100.247.48",
+      "port": 8050,
+    "user": "falyrass"
+  },
+  "requirements": {
+    "php": ">=7.4.0",
+    "apache": ">=2.4.0"
+  },
+  "features": [
+    "Real-time CPU monitoring",
+    "Memory usage tracking",
+    "Disk space monitoring",
+    "Network interface statistics",
+    "System services status",
+    "System temperature reading",
+    "System uptime display",
+    "System logs viewer",
+    "Charts and graphs (Chart.js)",
+    "Dark/Light theme toggle",
+    "IP-based security",
+    "Responsive design (Desktop, Tablet, Mobile)",
+    "Auto-refresh capability",
+    "Configurable refresh interval"
+  ],
+  "scripts": {
+    "start": "php -S localhost:8050 router.php",
+    "dev": "php -S 0.0.0.0:8050 router.php"
+  },
+  "configuration": {
+    "file": "src/environment.php",
+    "settings": {
+      "SERVER_HOST": "100.100.247.48",
+      "SERVER_PORT": 3000,
+      "SERVER_USER": "falyrass",
+      "ENABLE_IP_FILTER": true,
+      "REFRESH_INTERVAL": 2000
+    }
+  },
+  "api_endpoints": {
+    "metrics": "/api/metrics.php",
+    "history": "/api/history.php"
+  }
+}

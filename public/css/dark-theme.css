@@ -1,0 +1,103 @@
+/* ===== DARK THEME (DEFAULT) ===== */
+body.dark-theme {
+    --primary: #89b4fa;
+    --primary-dark: #6fa3f5;
+    --secondary: #f38ba8;
+    --success: #a6e3a1;
+    --warning: #f9e2af;
+    --danger: #f38ba8;
+    --info: #89dceb;
+    
+    --bg-primary: #1e1e2e;
+    --bg-secondary: #313244;
+    --bg-tertiary: #45475a;
+    --bg-hover: #585b70;
+    
+    --text-primary: #cdd6f4;
+    --text-secondary: #bac2de;
+    --text-muted: #a6adc8;
+    
+    --border-color: #45475a;
+    --border-light: #585b70;
+}
+
+/* ===== LIGHT THEME ===== */
+body.light-theme {
+    --primary: #4c7ef3;
+    --primary-dark: #3b5bbf;
+    --secondary: #e74c3c;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --info: #3498db;
+    
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #ecf0f1;
+    --bg-hover: #e8ecf1;
+    
+    --text-primary: #2c3e50;
+    --text-secondary: #34495e;
+    --text-muted: #7f8c8d;
+    
+    --border-color: #bdc3c7;
+    --border-light: #d5dbdb;
+}
+
+/* ===== COLOR SCHEME ADJUSTMENTS ===== */
+body.light-theme .sidebar {
+    background-color: var(--bg-secondary);
+    border-right-color: var(--border-color);
+}
+
+body.light-theme .header {
+    background-color: var(--bg-secondary);
+}
+
+body.light-theme .stat-card,
+body.light-theme .chart-card,
+body.light-theme .info-card,
+body.light-theme .service-item,
+body.light-theme .network-item,
+body.light-theme .logs-container {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+body.light-theme .logs-content {
+    background-color: var(--bg-tertiary);
+}
+
+body.light-theme .progress-bar {
+    background-color: var(--bg-tertiary);
+}
+
+body.light-theme .status-indicator {
+    background-color: var(--bg-tertiary);
+}
+
+body.light-theme .btn-settings,
+body.light-theme .btn-refresh,
+body.light-theme .btn-theme-toggle {
+    background-color: var(--bg-tertiary);
+}
+
+body.light-theme .nav-link:hover {
+    background-color: var(--bg-tertiary);
+}
+
+body.light-theme .modal-content {
+    background-color: var(--bg-secondary);
+}
+
+body.light-theme input[type="number"],
+body.light-theme input[type="checkbox"] {
+    background-color: var(--bg-tertiary);
+}
+
+/* ===== THEME-SPECIFIC SHADOWS ===== */
+body.light-theme {
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,2 @@
+# Ignore sensitive environment config
+src/environment.php
